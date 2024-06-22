@@ -1,9 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native'
 import  {createNativeStackNavigator} from '@react-navigation/native-stack'
-
-import About from './components/About'
 import Router from './screen/Router'
-import { ContexProvider } from './contex'
+import { ContexProvider } from './hooks/contex'
 
 export type rootStackPramList={
   Home:undefined,

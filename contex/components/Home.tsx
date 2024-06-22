@@ -1,7 +1,8 @@
 import { Button, StyleSheet, Text, TextInput, View } from 'react-native'
 
-import {useTogoContext } from '../contex'
+import {useTogoContext } from '../hooks/contex'
 import { useState } from 'react'
+import axios from '../api/axios'
 
 const Home = () => {
   const{toggle,setToggle}=useTogoContext()
@@ -9,6 +10,18 @@ const Home = () => {
     username:"",
     password:""
   })
+
+  const login=async()=>{
+    console.log(cred)
+    try {
+      const response = await axios.post('/users/login',cred)
+      console.log(response.data)
+      
+    } catch (error) {
+      
+    }
+  }
+
   return (
       <View style={styles.container}>
         <Text>App</Text>

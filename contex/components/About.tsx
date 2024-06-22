@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, Button } from 'react-native'
 import React from 'react'
-import { useTogoContext } from '../contex'
+import { useTogoContext } from '../hooks/contex'
 
 const About = () => {
   const{toggle,setToggle}=useTogoContext()
