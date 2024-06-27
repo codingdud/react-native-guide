@@ -1,5 +1,5 @@
 import React from 'react'
-import About from '../components/About'
+import About from '../screen/About'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
 export type rootStackPramList={
@@ -7,7 +7,7 @@ export type rootStackPramList={
     About:undefined,
   }
   const Stack = createNativeStackNavigator<rootStackPramList>()
-const AboutStk = () => {
+const LoginStk = () => {
   return (
     <Stack.Navigator initialRouteName='About'>
         <Stack.Screen 
@@ -19,4 +19,4 @@ const AboutStk = () => {
   )
 }
 
-export default AboutStk
+export default LoginStk

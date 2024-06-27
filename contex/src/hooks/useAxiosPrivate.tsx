@@ -1,20 +1,22 @@
 import { axiosPrivate } from "../api/axios";
 import { useEffect } from "react";
-import { useTogoContext } from "./contex";
+import { useStateContext } from "./contex";
 import useRefreshToken from "./useRefreshToken";
 
 const useAxiosPrivate = () => {
-  const { getAccessToken } = useTogoContext();
-  const refresh = useRefreshToken();
+  const refresh=useRefreshToken();
+  const { authState,getAccessToken} = useStateContext();
+  
   useEffect(() => {
     const requestIntercept=axiosPrivate.interceptors.request.use(
       (config) => {
-        config.headers.Authorization = `Bearer ${getAccessToken()}`;
+        if(!config?.headers?.Authorization){
+          console.log("private attach token",getAccessToken());
+          config.headers.Authorization = `Bearer ${getAccessToken()}`;
+        }
         return config;
       },
-      (error) => {
-        return Promise.reject(error);
-      }
+      (error) => Promise.reject(error)
     );
     const responseIntercept = axiosPrivate.interceptors.response.use(
         response => response,
@@ -22,7 +24,8 @@ const useAxiosPrivate = () => {
             const prevRequest = error?.config;
             if (error?.response?.status === 403 && !prevRequest?.sent) {
                 prevRequest.sent = true;
-                const newAccessToken = await refresh();
+                console.log("private  respones",error.response.status);
+                const newAccessToken =  await refresh();
                 console.log("new access private",newAccessToken);
                 prevRequest.headers.Authorization = `Bearer ${newAccessToken}`;
                 return axiosPrivate(prevRequest);
@@ -35,7 +38,8 @@ const useAxiosPrivate = () => {
       axiosPrivate.interceptors.request.eject(requestIntercept);
       axiosPrivate.interceptors.response.eject(responseIntercept);
     };
-  }, [getAccessToken,refresh]);
+  }, [authState,getAccessToken]);
+  return axiosPrivate;
 };
 
 export default useAxiosPrivate;

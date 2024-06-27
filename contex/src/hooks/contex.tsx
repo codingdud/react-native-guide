@@ -1,5 +1,6 @@
-import {  Dispatch, PropsWithChildren, SetStateAction, createContext, useContext, useState } from "react"
+import React, { Dispatch, PropsWithChildren, SetStateAction, createContext, useContext, useState } from "react"
 import * as Keychain from 'react-native-keychain';
+
 export type togoType={
     toggal:boolean,
     setToggle:Dispatch<SetStateAction<boolean>>
@@ -17,10 +18,10 @@ const defaultValue={
     setToggle:()=>{}
 
 }
-export const TogoContext=createContext<typeTooggle>(defaultValue)
+export const Context=createContext<typeTooggle>(defaultValue)
 
-export const useTogoContext=()=>{
-    const context=useContext(TogoContext)
+export const useStateContext=()=>{
+    const context=useContext(Context)
     if(!context){
         throw new Error('useTogoContext must be used within a TogoContext')
     }
@@ -48,8 +49,8 @@ export const ContexProvider:React.FC<PropsWithChildren>=({children})=> {
         })   
     }
   return (
-    <TogoContext.Provider value={{authState,logout,setAuthState,getAccessToken,toggle,setToggle}}>
+    <Context.Provider value={{authState,logout,setAuthState,getAccessToken,toggle,setToggle}}>
         {children}
-    </TogoContext.Provider>
+    </Context.Provider>
   )
 }

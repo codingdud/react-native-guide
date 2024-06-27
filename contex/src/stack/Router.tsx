@@ -1,18 +1,20 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react'
 import * as Keychain from 'react-native-keychain';
-
 import { useTogoContext } from '../hooks/contex'
-import AboutStk from './AboutStk'
-import HomeStk from './HomeStk'
+import LoginStk from './LoginStk'
+import LogoutStk from './LogoutStk'
 import Spinner from '../components/Spinner';
 
 const Router = () => {
   const [status, setStatus] = useState('loading');
-  const{setAuthState,toggle}=useTogoContext()
-  console.log("router",toggle)
+  const{authState,setAuthState}=useTogoContext()
+
+
+
   const loadJWT=useCallback(async()=>{
     try {
       const value = await Keychain.getGenericPassword();
+      console.log("keychain route",value)
       if (value) {
         const jwt = JSON.parse(value.password);
         setAuthState({
@@ -36,12 +38,13 @@ const Router = () => {
     loadJWT();
   }, [loadJWT]);
 
+  console.log("authState root",authState)
   if (status === 'loading') {
     return <Spinner/>;
   }
   return (
     <Fragment>
-      {toggle?<AboutStk/>:<HomeStk/>}
+      {authState?.authenticated===true?<LoginStk/>:<LogoutStk/>}
     </Fragment>
   )
 }

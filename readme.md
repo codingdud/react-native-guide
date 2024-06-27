@@ -41,3 +41,6 @@ https://www.npmjs.com/package/@rneui/themed/
 
 ## React Native base Desigen
 - [nativeBase](https://nativebase.io/)
+
+
+.\gradlew assembleRelease -x bundleReleaseJsAndAssets
