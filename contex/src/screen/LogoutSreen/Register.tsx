@@ -1,20 +1,12 @@
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import React, { useState } from 'react';
-import { View, TextInput, Button, StyleSheet, TouchableOpacity, Text, ScrollView, Image } from 'react-native';
-import { logoutStackPramList } from '../../stack/LogoutStk';
+import React from 'react';
+import { View,StyleSheet,TouchableOpacity, Text, ScrollView, Image } from 'react-native';
+import RegisterForm from '../../components/RegisterForm';
 
 
 const Register: React.FC = () => {
     const navigation = useNavigation<NativeStackNavigationProp<logoutStackPramList, 'register'>>();
-    const[cred,setCred]=useState({
-        username:"",
-        password:""
-      })
-
-    const handleRegister = () => {
-        // Handle registration logic here
-    };
 
     return (
         <View style={styles.container}>
@@ -24,44 +16,7 @@ const Register: React.FC = () => {
           resizeMode="contain"
           style={styles.image}
         />
-        <View style={styles.LgoinStyle}>
-          <View style={styles.LableStyle}>
-            <Text>
-            User Name
-            </Text>
-            <TextInput
-              style={styles.inputStyle}
-              placeholder='username'
-              value={cred.username}
-              onChangeText={(text)=>{setCred((prev)=>{
-                return{
-                  ...prev,
-                  username:text
-                }
-              })}}
-            />
-          </View>
-          <View style={styles.LableStyle}>
-            <Text>
-              Password
-            </Text>
-            <TextInput
-            style={styles.inputStyle}
-              placeholder='password'
-              value={cred.password}
-              onChangeText={(text)=>{setCred((prev)=>{
-                return{
-                  ...prev,
-                  password:text
-                }
-              })}}
-            />
-          </View>
-          <TouchableOpacity 
-          style={styles.button}>
-            <Text style={styles.loginText}>Register</Text>
-          </TouchableOpacity>
-        </View>
+          <RegisterForm/>
         </ScrollView>
         <TouchableOpacity 
         style={styles.reginstrationText}

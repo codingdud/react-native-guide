@@ -1,7 +1,4 @@
 import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-
-
-import {logoutStackPramList} from '../../stack/LogoutStk'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';

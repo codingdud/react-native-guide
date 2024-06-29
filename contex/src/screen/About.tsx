@@ -1,12 +1,10 @@
 import { View, Text, StyleSheet, Button } from 'react-native'
 import React from 'react'
-import { useTogoContext } from '../hooks/contex'
+import { useStateContext } from '../hooks/contex'
 import useAxiosPrivate from '../hooks/useAxiosPrivate'
-import axios from '../api/axios'
-import useRefreshToken from "../hooks/useRefreshToken";
 
 const About = () => {
-  const{authState,logout}=useTogoContext()
+  const{authState,logout}=useStateContext()
   const axiosPrivate=useAxiosPrivate()
   const data = {
     // Example data you want to send

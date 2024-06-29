@@ -2,11 +2,11 @@ import React from 'react'
 import About from '../screen/About'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
-export type rootStackPramList={
+export type LoginStackPramList={
     Home:undefined,
     About:undefined,
   }
-  const Stack = createNativeStackNavigator<rootStackPramList>()
+  const Stack = createNativeStackNavigator<LoginStackPramList>()
 const LoginStk = () => {
   return (
     <Stack.Navigator initialRouteName='About'>

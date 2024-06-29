@@ -1,50 +1,50 @@
-
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-
-import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { View, Text, StyleSheet } from 'react-native';
 import React from 'react';
-
-import {userSchema} from '../utility/yepValidationSchema';
+import {loginSchema} from '../utility/yepValidationSchema';
 import {useLogin} from '../api/apis';
+import Input from './Input';
+import CustomButton from './CustomButton';
+import Spinner from './Model/Spinner';
 const LoginForm = () => {
-    const Loginapi=useLogin()
+    const MyIcon = () => <Icon name="user-o" size={17} />;
+    const MyIcon1 = () => <Icon name="lock" size={20} />;
+    const [Loginapi,nextpage]=useLogin()
     const {
         control,
         handleSubmit,
         formState: { errors },
     } = useForm({
-        resolver: yupResolver(userSchema),
+        resolver: yupResolver(loginSchema),
         defaultValues: {
-            username: '',
+            emailPnone: '',
             password: '',
         },
     });
 
     return (
         <View style={styles.LgoinStyle}>
+            {nextpage=='loading'?<Spinner visible={true}/>:null}
             <Controller
                 control={control}
                 rules={{
                     required: true,
                 }}
                 render={({ field: { onChange, value } }) => (
-                    <View style={styles.LableStyle}>
-                        <Text>
-                            email/phone
-                        </Text>
-                        <TextInput
-                            style={styles.inputStyle}
-                            value={value}
-                            onChangeText={onChange}
-                            placeholder="email/phone"
-                        />
-                    </View>
+                    <Input
+                        Icon={MyIcon}
+                        value={value}
+                        onChange={onChange}
+                        lable="Username"
+                    />
                 )}
-                name="username"
+                name="emailPnone"
             />
-            {errors.username && <Text style={styles.errorStyle}>
-                {errors.username.message}
+            
+            {errors.emailPnone && <Text style={styles.errorStyle}>
+                {errors.emailPnone.message}
             </Text>}
             <Controller
                 control={control}
@@ -52,29 +52,25 @@ const LoginForm = () => {
                     required: true,
                 }}
                 render={({ field: { onChange, value } }) => (
-                    <View style={styles.LableStyle}>
-                        <Text>
-                            Password
-                        </Text>
-                        <TextInput
-                            style={styles.inputStyle}
-                            value={value}
-                            onChangeText={onChange}
-                            placeholder="Password"
-                            secureTextEntry
-                        />
-                    </View>
+                    <Input
+                        Icon={MyIcon1}
+                        value={value}
+                        onChange={onChange}
+                        lable="Password"
+                        secureTextEntry
+                    />
                 )}
                 name="password"
             />
             {errors.password && <Text style={styles.errorStyle}>
                 {errors.password.message}
             </Text>}
-            <TouchableOpacity
+            <CustomButton
                 onPress={handleSubmit(Loginapi)}
-                style={styles.button}>
-                <Text style={styles.loginText}>Login</Text>
-            </TouchableOpacity>
+                disabled={nextpage=='loading'}
+                loading={nextpage=='loading'}
+                title="Login"
+            />
         </View>
     )
 }
@@ -89,22 +85,6 @@ const styles = StyleSheet.create({
         width: '98%',
         marginTop: '7%',
         alignSelf: "center"
-    },
-    LableStyle: {
-        marginTop: '5%',
-        alignItems: 'flex-start',
-        width: '90%',
-        justifyContent: 'space-between',
-        gap: 4,
-    },
-    inputStyle: {
-        width: '100%',
-        height: 40,
-        borderColor: 'gray',
-        borderWidth: 1,
-        borderRadius: 5,
-        marginTop: '2%',
-        paddingLeft: '3%',
     },
     LgoinStyle: {
         marginTop: '10%',
