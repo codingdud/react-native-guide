@@ -8,15 +8,13 @@ import {useLogin} from '../api/apis';
 import Input from './Input';
 import CustomButton from './CustomButton';
 import Spinner from './Model/Spinner';
+import { useTheme } from '@react-navigation/native';
 const LoginForm = () => {
-    const MyIcon = () => <Icon name="user-o" size={17} />;
-    const MyIcon1 = () => <Icon name="lock" size={20} />;
+    const { colors } = useTheme();
+    const MyIcon = () => <Icon name="user-o" size={17} color={colors.text}/>;
+    const MyIcon1 = () => <Icon name="lock" size={20} color={colors.text}/>;
     const [Loginapi,nextpage]=useLogin()
-    const {
-        control,
-        handleSubmit,
-        formState: { errors },
-    } = useForm({
+    const {control,handleSubmit,formState: { errors }, } = useForm({
         resolver: yupResolver(loginSchema),
         defaultValues: {
             emailPnone: '',
@@ -37,7 +35,7 @@ const LoginForm = () => {
                         Icon={MyIcon}
                         value={value}
                         onChange={onChange}
-                        lable="Username"
+                        lable="Email/Phone"
                     />
                 )}
                 name="emailPnone"

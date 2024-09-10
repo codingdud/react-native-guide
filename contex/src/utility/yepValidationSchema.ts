@@ -4,6 +4,7 @@ import {validateLen,validateEmailOrPhoneNumber} from './validationFun';
 export const loginSchema = yup.object().shape({
     emailPnone: yup
     .string()
+    .required('Email is email or phone is required')
     .test('emailphone',function(value){
         const result = validateEmailOrPhoneNumber(value??'');
             if (result === true) {
@@ -11,8 +12,7 @@ export const loginSchema = yup.object().shape({
             } else {
                 return this.createError({ message: result });
             }
-        })
-    .required('Email is required'),
+        }),
     password: yup
         .string()
         .required('Password is required')

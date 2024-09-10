@@ -1,8 +1,7 @@
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import Login from '../screen/LogoutSreen/Login'
-import Register from '../screen/LogoutSreen/Register'
-
+import Login from '../screen/LogoutScreen/Login'
+import Register from '../screen/LogoutScreen/Register'
 
 const Stack = createNativeStackNavigator<logoutStackPramList>()
 const LogoutStk = () => {

@@ -1,21 +1,24 @@
-import React, { Fragment } from 'react'
-import LoginStk from './LoginStk'
+import { NavigationContainer} from '@react-navigation/native'
+import React from 'react';
 import LogoutStk from './LogoutStk'
 import MyDrawer from './DrawerStk'
 
 import useLoadJWT from '../utility/useLoadJWT';
 import Spinner from '../components/Model/Spinner';
-
+import { useStateContext } from '../hooks/contex';
+import {lightTheme,darkTheme} from '../utility/themes'
 const Router = () => {
+  const {theme}=useStateContext();
   const{status,authState}=useLoadJWT();
-  console.log("authState root",authState)
+  console.log("authState root",authState.authenticated)
+
   if (status === 'loading') {
-    return <Spinner/>;
+    return <Spinner visible={true}/>
   }
   return (
-    <Fragment>
+    <NavigationContainer theme={theme==='dark'?darkTheme:lightTheme}>
       {authState?.authenticated===true?<MyDrawer/>:<LogoutStk/>}
-    </Fragment>
+    </NavigationContainer>
   )
 }
 

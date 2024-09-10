@@ -28,6 +28,7 @@ const useRefreshToken = () => {
         } catch (error:any) {
            // const errorMessage = JSON.parse(error.response.data.message);
             console.log("refresh token error",error.message);
+            Keychain.resetGenericPassword({service: 'token'})
             setAuthState({
                 accessToken: null,
                 refreshToken: null,

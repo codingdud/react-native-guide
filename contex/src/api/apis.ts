@@ -30,7 +30,8 @@ export const useLogin=():[SubmitHandler<loginformdatatype>, string]=>{
         })
         await Keychain.setGenericPassword(
             'token', 
-            JSON.stringify({accessToken, refreshToken})
+            JSON.stringify({accessToken, refreshToken}),
+            {service: 'token'}
         );
         setNextpage('nextpage')
         } catch (error: any) {

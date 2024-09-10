@@ -9,8 +9,8 @@ interface typeTooggle{
     setAuthState:Dispatch<SetStateAction<boolean>>,
     getAccessToken:()=>any,
     logout:()=>void,
-    toggle:boolean,
-    setToggle:Dispatch<SetStateAction<boolean>>
+    theme:string,
+    toggleTheme:(newTheme?: "light" | "dark" )=>void
 }
 
 type registerformdatatype = {
@@ -24,7 +24,11 @@ type loginformdatatype = {
     emailPnone: string;
     password: string;
 };
-
+//stack type Tab
+type TabStackPramList={
+    tab1:undefined,
+    tab2:undefined,
+}
 //stack type
 type logoutStackPramList={
     login:undefined,
@@ -39,6 +43,8 @@ type LoginStackPramList={
 //Drawer type
 type DorwarStackPramList = {
     Home: undefined,
+    Profile: undefined,
+    Room: undefined,
     Article: undefined,
     Transaction: undefined,
     Advance: undefined,

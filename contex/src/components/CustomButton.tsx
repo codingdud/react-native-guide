@@ -1,5 +1,6 @@
 import React from 'react';
 import {TouchableOpacity, Text, StyleSheet} from 'react-native';
+import useThemedStyles from '../hooks/useThemeStyle';
 
 // Define the props the component will accept
 interface CustomButtonProps {
@@ -10,6 +11,7 @@ interface CustomButtonProps {
 }
 
 const CustomButton: React.FC<CustomButtonProps> = ({loading, title,...props}) => {
+  const styles = useThemedStyles(themedStyles);
   return (
     <TouchableOpacity
       {...props}
@@ -19,8 +21,27 @@ const CustomButton: React.FC<CustomButtonProps> = ({loading, title,...props}) =>
   );
 };
 
+export default CustomButton;
 // Define or import your styles here
-const styles = StyleSheet.create({
+const themedStyles = (theme:any) => ({
+  button: {
+    marginTop: '5%',
+    backgroundColor: theme.colors.text,
+    borderRadius: 8,
+    paddingHorizontal: '20%',
+    padding: '1%',
+    justifyContent: "center"
+  },
+  text: {
+    color: theme.colors.background,
+    fontSize: 24,
+    alignSelf: "center"
+  },
+  loading:{
+    opacity:0.5
+  },
+})
+const style = StyleSheet.create({
   button: {
     marginTop: '5%',
     backgroundColor: 'black',
@@ -38,5 +59,3 @@ const styles = StyleSheet.create({
     opacity:0.5
   },
 });
-
-export default CustomButton;

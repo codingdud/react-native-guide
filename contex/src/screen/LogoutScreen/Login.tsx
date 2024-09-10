@@ -1,15 +1,16 @@
 import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useTheme } from '@react-navigation/native';
 import React from 'react';
 
 import LoginForm from '../../components/LoginForm';
+import useThemedStyles from '../../hooks/useThemeStyle';
 
 
 const Login = () => {
-  
   const navigation = useNavigation<NativeStackNavigationProp<logoutStackPramList, 'login'>>();  
-
+  const styles = useThemedStyles(themedStyles);
+  const {colors}=useTheme()
   return (
       <View style={styles.container}>
         <ScrollView>
@@ -20,9 +21,12 @@ const Login = () => {
         />
         <LoginForm />
         <TouchableOpacity>
-          <Text style={{textAlign:'center',
+          <Text style={{
+            textAlign:'center',
             marginTop:10, 
-            fontWeight: 'bold'}}
+            fontWeight: 'bold',
+            color:colors.text
+          }}
             >Forgot Password?</Text>
         </TouchableOpacity>
         </ScrollView>
@@ -32,10 +36,13 @@ const Login = () => {
           navigation.push('register')
         }}
         >
-          <Text style={{textAlign:'center',
-            marginTop:10}}>
+          <Text style={{
+            textAlign:'center',
+            marginTop:10,
+            color:colors.text
+            }}>
             Don't have an account? 
-            <Text style={{fontWeight: 'bold'}}>
+            <Text style={{fontWeight: 'bold',color:colors.text}}>
               Register
             </Text>
           </Text>
@@ -46,7 +53,23 @@ const Login = () => {
 
 export default Login
 
-const styles = StyleSheet.create({
+
+const themedStyles = (theme:any) => ({
+  container:{
+    flex:1,
+  },
+  image: {
+    width: '98%',
+    marginTop: '7%',
+    alignSelf: "center"
+  },
+  
+  reginstrationText: {
+    marginBottom: '2%',
+  }
+});
+
+const style = StyleSheet.create({
   container:{
     flex:1,
   },
@@ -60,3 +83,4 @@ const styles = StyleSheet.create({
     marginBottom: '2%',
   }
 })
+

@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Button } from 'react-native'
+import { Image,View, Text, StyleSheet, Button } from 'react-native'
 import React from 'react'
 import { useStateContext } from '../hooks/contex'
 import useAxiosPrivate from '../hooks/useAxiosPrivate'
@@ -12,7 +12,6 @@ const About = () => {
 };
   const test=async()=>{
     try {
-      
       //const response = await axios.post('/users/refreshTokenMobile', data);
       //console.log(response.data)
       const value = await axiosPrivate.get('/users/test');
@@ -21,7 +20,6 @@ const About = () => {
       console.log('about',error)
     }
   }
-
   return (
     <View style={styles.container}>
       <Text>About</Text>
@@ -31,7 +29,7 @@ const About = () => {
         <Button title='test' onPress={()=>{
         test()
         }}/>
-      
+        <Image source={require('../assets/loading.gif')} style={styles.loading}/>
     </View>
   )
 }
@@ -41,7 +39,11 @@ const styles = StyleSheet.create({
     flex:1,
     alignItems:'center',
     justifyContent:'center'
-  }
+  },
+  loading: {
+    width: 150,
+    height:150,
+  },
 })
 
 export default About

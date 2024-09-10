@@ -8,7 +8,7 @@ const useLoadJWT = () => {
 
   const loadJWT = useCallback(async () => {
     try {
-      const value = await Keychain.getGenericPassword();
+      const value = await Keychain.getGenericPassword({service: 'token'});
       if (value) {
         const jwt = JSON.parse(value.password);
         setAuthState({
@@ -33,7 +33,7 @@ const useLoadJWT = () => {
       });
       setStatus('error');
     }
-  }, [setAuthState]);
+  }, []);
 
   useEffect(() => {
     loadJWT();

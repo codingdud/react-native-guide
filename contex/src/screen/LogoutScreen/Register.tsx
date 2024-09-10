@@ -1,4 +1,4 @@
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useTheme } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React from 'react';
 import { View,StyleSheet,TouchableOpacity, Text, ScrollView, Image } from 'react-native';
@@ -6,28 +6,32 @@ import RegisterForm from '../../components/RegisterForm';
 
 
 const Register: React.FC = () => {
-    const navigation = useNavigation<NativeStackNavigationProp<logoutStackPramList, 'register'>>();
-
-    return (
-        <View style={styles.container}>
-        <ScrollView>
-        <Image
-          source={require("../../assets/images/Vector.png")}
-          resizeMode="contain"
-          style={styles.image}
-        />
-          <RegisterForm/>
-        </ScrollView>
-        <TouchableOpacity 
-        style={styles.reginstrationText}
-        onPress={()=>{
-          navigation.pop()
-        }}
-        >
-          <Text style={{textAlign:'center',marginTop:10}}>already have an account? <Text style={{fontWeight: 'bold'}}>Login</Text></Text>
-        </TouchableOpacity>
-      </View>
-    );
+  const {colors}=useTheme()
+  const navigation = useNavigation<NativeStackNavigationProp<logoutStackPramList, 'register'>>();
+  return (
+      <View style={styles.container}>
+      <ScrollView>
+      <Image
+        source={require("../../assets/images/Vector.png")}
+        resizeMode="contain"
+        style={styles.image}
+      />
+        <RegisterForm/>
+      </ScrollView>
+      <TouchableOpacity 
+      style={styles.reginstrationText}
+      onPress={()=>{
+        navigation.pop()
+      }}
+      >
+        <Text style={{
+          textAlign:'center',
+          marginTop:10,
+          color:colors.text
+          }}>already have an account? <Text style={{fontWeight: 'bold'}}>Login</Text></Text>
+      </TouchableOpacity>
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({

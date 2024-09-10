@@ -11,12 +11,15 @@ import Input from './Input';
 import { useRegister } from '../api/apis';
 import Spinner from './Model/Spinner';
 import CustomButton from './CustomButton';
+import { useTheme } from '@react-navigation/native';
 
-const Email = () => <Icon name="envelope-o" size={20} />;
-const User = () => <Icon name="user-o" size={20} />;
-const Phone = () => <Icon name="mobile" size={20} />;
-const Lock = () => <Icon name="lock" size={20} />;
+
 const RegisterForm = () => {
+    const {colors} = useTheme();
+    const Email = () => <Icon name="envelope-o" size={20} color={colors.text}/>;
+    const User = () => <Icon name="user-o" size={17} color={colors.text}/>;
+    const Phone = () => <Icon name="mobile" size={20} color={colors.text}/>;
+    const Lock = () => <Icon name="key" size={20} color={colors.text}/>;
     useEffect(() => {
         if(nextpage=='nextpage'){
             console.log('Registeration Successfull')
